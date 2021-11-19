@@ -4,8 +4,8 @@ from pymongo.errors import ServerSelectionTimeoutError, DuplicateKeyError
 
 class MongoDBHandler(DB):
 
-    def __init__(self, name: str, logger = None):
-        super(MongoDBHandler, self).__init__(name, logger)
+    def __init__(self, name: str = ""):
+        super(MongoDBHandler, self).__init__(name)
         
     def get_connection(self):
         try:
