@@ -1,6 +1,6 @@
-import config
 import logging
 import logging.handlers
+from utility import config
 from utility.path_handler import PathHandler
 from cmreslogging.handlers import CMRESHandler
 

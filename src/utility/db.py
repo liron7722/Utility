@@ -1,4 +1,4 @@
-import config
+from utility import config
 from utility.logger_handler import Logger
 
 class DB():
