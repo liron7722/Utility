@@ -1,6 +1,6 @@
+import config
 import logging
 import logging.handlers
-from utility.config import Config
 from utility.path_handler import PathHandler
 from cmreslogging.handlers import CMRESHandler
 
@@ -8,7 +8,7 @@ class Logger:
     logger: logging = None
 
     def __init__(self, name: str, path: str = None, logger=None, backupCount: int = 10):
-        logging.raiseExceptions = Config.env == "Development"
+        logging.raiseExceptions = config.get('ENV')
         self.logger = self.start(name, path, logger, backupCount)
 
     def get_logger(self):
@@ -32,8 +32,8 @@ class Logger:
         stream_handler.setFormatter(formatter)
 
         # CMRES Handler - Elastic
-        http_handler = CMRESHandler(hosts=[{'host': Config.elastic_url, 'port': Config.elastic_port}], es_index_name=name, 
-                            auth_type=CMRESHandler.AuthType.NO_AUTH, es_additional_fields={'App': Config.name, 'Environment': Config.env})
+        http_handler = CMRESHandler(hosts=[{'host': config.get('Elastic_URL'), 'port': config.get('ELASTIC_PORT')}], es_index_name=name, 
+                auth_type=CMRESHandler.AuthType.NO_AUTH, es_additional_fields={'App': config.get('NAME'), 'Environment': config.get('ENV')})
         
         # File handler
         PathHandler.create_dir(path)

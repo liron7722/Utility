@@ -1,9 +1,23 @@
 from os import environ
 
 class Config(object):
-    env: str = environ.get('ENV') or "Development"
-    name: str = environ.get('NAME')
-    service_type: str = environ.get('TYPE')
-    db_uri: str = environ.get('DB_URI')
-    elastic_url: str = environ.get('Elastic_URL') or 'localhost'
-    elastic_port: str = environ.get('ELASTIC_PORT') or 9200
+    storage = {}
+    
+    def __init__(self):
+        for key, replacement in [('ENV', 'Development'), 
+                                 ('NAME', 'None'),
+                                 ('TYPE', 'None'),
+                                 ('DB_URI', 'None'),
+                                 ('Elastic_URL', 'localhost'),
+                                 ('ELASTIC_PORT', '9200'),]:
+            self.storage[key] = environ.get(key) or replacement  
+
+    def get(self, target, replacement=None):
+        if target in self.storage:
+            return self.storage[target]
+        res = environ.get(target)
+        if res is None:
+            print(f'Could not find {target}')
+            return replacement
+        self.storage[target] = res
+        return res
