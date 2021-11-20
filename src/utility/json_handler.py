@@ -28,7 +28,7 @@ class JsonHandler():
 
     def setClsEncoder(self, cls_encoder: str = None):
         if cls_encoder == "NpEncoder":
-                self.cls_encoder = NpEncoder()
+                self.cls_encoder = NpEncoder
 
     def enableAscii(self, flag: bool = True):
         self.ensure_ascii = flag
