@@ -43,8 +43,9 @@ class Logger:
         
         # adding Handlers
         new_logger.addHandler(file_handler)
-        new_logger.addHandler(http_handler)
         new_logger.addHandler(stream_handler)
+        if config.get('ENV') != 'Development':
+            new_logger.addHandler(http_handler)
 
         new_logger.info('Initialize Logger')
         return new_logger
