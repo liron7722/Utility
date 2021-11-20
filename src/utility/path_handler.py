@@ -17,6 +17,6 @@ class PathHandler():
     def create_dir(path: str):
         Path(path).mkdir(mode=511, parents=True, exist_ok=True)
 
-    def get_files(self, folder_path: str = None, file_type='json') -> list[str]:
+    def get_files(self, folder_path: str = None, file_type='json'):
         path = self.get_path(folder_path)
         return [f for f in glob(path + "\*." + file_type)]
